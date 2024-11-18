@@ -1,14 +1,25 @@
 package XIXokt.monster;
 
 import XIXokt.character.Character;
+import XIXokt.interfaces.IAttackable;
 
-public abstract class Monster {
+public abstract class Monster implements IAttackable{
     private String name;
     private int health;
     private int power;
     private String race;
 
     public abstract void attack(Character target);
+
+    @Override
+    public void takeDamage(int amount) {
+        var healthAfterAttack = getHealth() - amount;
+        setHealth(healthAfterAttack);
+        if (healthAfterAttack <= 0){
+            System.out.printf("%s was slain\n", getName());
+            setHealth(0);
+        }
+    }
 
     public String getName() {
         return name;
